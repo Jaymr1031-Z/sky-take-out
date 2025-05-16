@@ -21,11 +21,20 @@ public interface CategoryMapper {
     void update(Category category);
 
     /**
-     * 分页查询
+     * 分页查询分类
      * @param cate
      * @return
      */
     Page<Category> get(CategoryPageQueryDTO cate);
 
+    /**
+     * 新增分类
+     */
     void add(Category category);
+
+    /**
+     * 根据id删除分类
+     * @param id
+     */
+    void delete(Integer id);
 }

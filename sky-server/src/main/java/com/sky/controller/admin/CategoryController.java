@@ -9,6 +9,7 @@ import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Case;
+import org.apache.ibatis.annotations.Delete;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
@@ -64,6 +65,16 @@ public class CategoryController {
     public Result add(@RequestBody CategoryDTO categoryDTO){
         log.info("新增分类：{}",categoryDTO);
         categoryService.add(categoryDTO);
+        return Result.success();
+    }
+
+    /**
+     * 根据id删除分类
+     */
+    @DeleteMapping
+    public Result deleteById(Integer id){
+        log.info("根据id删除分类:{}",id);
+        categoryService.deleteById(id);
         return Result.success();
     }
 }

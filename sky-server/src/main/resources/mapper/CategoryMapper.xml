@@ -74,4 +74,9 @@
                    #{updateUser}
                )
     </insert>
+
+    <delete id="delete">
+        delete from category where id = #{id}
+    </delete>
+
 </mapper>
