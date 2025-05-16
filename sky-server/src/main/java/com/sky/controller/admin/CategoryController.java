@@ -8,7 +8,9 @@ import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Case;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,5 +44,16 @@ public class CategoryController {
         log.info("分页查询：{}",categoryPageQueryDTO);
         PageResult p = categoryService.page(categoryPageQueryDTO);
         return Result.success(p);
+    }
+
+    /**
+     * 启用、禁用分类
+     */
+    @PostMapping("/status/{status}")
+    public Result openOrStop(@PathVariable Integer status,Long id){
+        log.info("启用、禁用分类:{},{}",status,id);
+        categoryService.openOrStop(status,id);
+        return Result.success();
+
     }
 }

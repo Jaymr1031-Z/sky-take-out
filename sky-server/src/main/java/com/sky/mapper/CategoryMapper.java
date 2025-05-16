@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CategoryMapper {
     /**
-     * 修改分类
+     * 更新分类
      * @param category
      */
     void update(Category category);

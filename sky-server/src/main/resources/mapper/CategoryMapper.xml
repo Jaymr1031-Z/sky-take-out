@@ -29,22 +29,22 @@
 
             <!-- 更新创建时间 -->
             <if test="createTime != null">
-                createTime = #{createTime},
+                create_time = #{createTime},
             </if>
 
             <!-- 更新修改时间 -->
             <if test="updateTime != null">
-                updateTime = #{updateTime},
+                update_time = #{updateTime},
             </if>
 
             <!-- 更新创建人 -->
             <if test="createUser != null">
-                createUser = #{createUser},
+                create_user = #{createUser},
             </if>
 
             <!-- 更新修改人 -->
             <if test="updateUser != null">
-                updateUser = #{updateUser},
+                update_user = #{updateUser},
             </if>
         </set>
         WHERE id = #{id}
