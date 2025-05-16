@@ -110,6 +110,47 @@ public class EmployeeServiceImpl implements EmployeeService {
         //3 封装到PageResult里
         return new PageResult(p.getTotal(),p.getResult());
     }
+
+    /**
+     * 启用/禁用员工
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        /*原始方法 new对象然后set
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);*/
+        //在Employee上有@builder
+        Employee emp = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        employeeMapper.update(emp);
+    }
+
+    /**
+     * 根据id查询员工
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        return employee;
+    }
+
+    /**
+     * 编辑员工信息
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        //对象属性拷贝
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());
+        employeeMapper.update(employee);
+    }
 }
 
 
