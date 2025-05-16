@@ -23,5 +23,16 @@ public interface CategoryService {
      */
     PageResult page(CategoryPageQueryDTO categoryPageQueryDTO);
 
+    /**
+     * 启用、禁用分类
+     * @param status
+     * @param id
+     */
     void openOrStop(Integer status, Long id);
+
+    /**
+     * 新增分类
+     * @param categoryDTO
+     */
+    void add(CategoryDTO categoryDTO);
 }
