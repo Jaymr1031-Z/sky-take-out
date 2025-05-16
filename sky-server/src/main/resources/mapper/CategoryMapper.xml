@@ -3,4 +3,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.CategoryMapper">
 
+
+    <update id="update" parameterType="com.sky.entity.Category">
+        UPDATE category
+        <set>
+            <!-- 更新分类名称 -->
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+
+            <!-- 更新类型: 1菜品分类 2套餐分类 -->
+            <if test="type != null">
+                type = #{type},
+            </if>
+
+            <!-- 更新顺序 -->
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+
+            <!-- 更新状态 -->
+            <if test="status != null">
+                status = #{status},
+            </if>
+
+            <!-- 更新创建时间 -->
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+
+            <!-- 更新修改时间 -->
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+
+            <!-- 更新创建人 -->
+            <if test="createUser != null">
+                createUser = #{createUser},
+            </if>
+
+            <!-- 更新修改人 -->
+            <if test="updateUser != null">
+                updateUser = #{updateUser},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="get" resultType="com.sky.entity.Category">
+        select * from category
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
 </mapper>
