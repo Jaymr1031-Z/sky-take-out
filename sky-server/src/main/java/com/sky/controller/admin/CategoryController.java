@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
   *@Author: Jaymr
   *@Date: 2025/5/16 15:24
@@ -72,9 +74,18 @@ public class CategoryController {
      * 根据id删除分类
      */
     @DeleteMapping
-    public Result deleteById(Integer id){
+    public Result deleteById(Long id){
         log.info("根据id删除分类:{}",id);
         categoryService.deleteById(id);
         return Result.success();
+    }
+
+    /**
+     * 根据类型查询分类
+     */
+    @GetMapping("/list")
+    public Result<List<Category>> list(Integer type){
+        List<Category> list = categoryService.list(type);
+        return Result.success(list);
     }
 }

@@ -1,13 +1,17 @@
 package com.sky.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
-/**
- * @Author: Jaymr
- * @Date: 2025/5/16 15:20
- * @Version: v1.0.0
- * @Description: TODO
- **/
 @Mapper
 public interface SetmealMapper {
+
+    /**
+     * 根据分类id查询套餐的数量
+     * @param id
+     * @return
+     */
+    @Select("select count(id) from setmeal where category_id = #{categoryId}")
+    Integer countByCategoryId(Long id);
+
 }

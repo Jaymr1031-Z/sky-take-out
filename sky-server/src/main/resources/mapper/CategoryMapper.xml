@@ -58,7 +58,7 @@
                 and type = #{type}
             </if>
         </where>
-        order by update_time desc
+        order by sort asc,update_time desc
     </select>
 
     <insert id="add" parameterType="com.sky.entity.Category">
@@ -78,5 +78,14 @@
     <delete id="delete">
         delete from category where id = #{id}
     </delete>
+
+    <select id="list" resultType="Category">
+        select * from category
+        where status = 1
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        order by sort asc,create_time desc
+    </select>
 
 </mapper>
