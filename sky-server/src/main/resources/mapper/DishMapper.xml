@@ -8,4 +8,69 @@
             values
            (#{name},#{categoryId},#{price},#{image},#{description},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})
     </insert>
+
+    <select id="getPage" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="java.util.List">
+        delete from dish where id in
+        <foreach collection="ids" item="ids" separator="," open="(" close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.sky.entity.Dish">
+        update dish
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultType="com.sky.dto.DishDTO">
+        select * from dish where id = #{id}
+    </select>
+
+    <select id="getByCateId" resultType="com.sky.entity.Dish">
+        select * from dish where category_id = #{categoryId}
+    </select>
+
+    <update id="openOrStop">
+        update dish
+        <set>
+            status = #{status}
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getId" resultType="com.sky.entity.Dish">
+        select * from dish where id = #{id}
+    </select>
+
+    <delete id="deleteByDishId" parameterType="java.util.List">
+        delete from dish_flavor where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
 </mapper>
