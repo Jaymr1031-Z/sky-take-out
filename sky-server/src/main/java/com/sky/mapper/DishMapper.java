@@ -58,7 +58,7 @@ public interface DishMapper {
     /**
      * 根据分类id查询菜品
      */
-    List<Dish> getByCateId(Long categoryId);
+    List<Dish> getByCateId(Dish dish);
 
     /**
      * 菜品起售、停售

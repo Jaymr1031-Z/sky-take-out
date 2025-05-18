@@ -8,4 +8,38 @@
             #{dishId}
         </foreach>
     </select>
+
+    <update id="update" parameterType="java.util.List">
+        update setmeal_dish
+        <set>
+            <foreach collection="setmealDishes" item="sm" separator="," open="(" close=")">
+                <if test="setmealId != null">
+                    setmeal_id = #{setmealId},
+                </if>
+                <if test="dishId != null">
+                    dish_id = #{dishId},
+                </if>
+                <if test="name != null">
+                    name = #{name},
+                </if>
+                <if test="price != null">
+                    price = #{price},
+                </if>
+                <if test="copies != null">
+                    copies = #{copies}
+                </if>
+            </foreach>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="insertBatch" parameterType="list">
+        insert into setmeal_dish
+        (setmeal_id,dish_id,name,price,copies)
+        values
+        <foreach collection="setmealDishes" item="sd" separator=",">
+            (#{sd.setmealId},#{sd.dishId},#{sd.name},#{sd.price},#{sd.copies})
+        </foreach>
+    </insert>
+
 </mapper>

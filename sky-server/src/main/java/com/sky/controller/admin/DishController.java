@@ -86,7 +86,7 @@ public class DishController {
      * 根据分类id查询菜品
      */
     @GetMapping("/list")
-    public Result getByCateId(@RequestParam Long categoryId){
+    public Result<List<Dish>> getByCateId(@RequestParam Long categoryId){
         log.info("根据分类id查询菜品:{}",categoryId);
         List<Dish> list = dishService.getByCateId(categoryId);
         return Result.success(list);

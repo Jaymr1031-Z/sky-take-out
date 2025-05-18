@@ -11,3 +11,6 @@ sky:
     access-key-id: LTAI5tSi6aN1w3jVcT2kANgd
     access-key-secret: WGpcbmKMbjkzaPZUGBP9VcH9OKC1S4
     bucket-name: java-sky-jaymr
+  redis:
+    host: localhost
+    port: 6379
