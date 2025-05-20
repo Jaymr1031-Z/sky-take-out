@@ -83,6 +83,9 @@
         </foreach>
     </delete>
 
+    <select id="getBySetmealId" resultType="com.sky.entity.Dish">
+        select * from dish left join setmeal_dish on dish.id = setmeal_dish.dish_id where setmeal_id = #{id}
+    </select>
 
 
 </mapper>

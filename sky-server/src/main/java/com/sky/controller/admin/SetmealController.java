@@ -6,9 +6,13 @@ import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author: Jaymr
@@ -25,7 +29,6 @@ public class SetmealController {
     private SetmealService setmealService;
     /**
      * 分页查询
-     * @param setmealPageQueryDTO
      * @return
      */
     @GetMapping("/page")
@@ -51,8 +54,8 @@ public class SetmealController {
     @GetMapping("/{id}")
     public Result getById(@PathVariable Long id){
         log.info("根据id查询套餐:{}",id);
-        SetmealDTO setmealDTO = setmealService.getById(id);
-        return Result.success(setmealDTO);
+        SetmealVO setmealVO = setmealService.getById(id);
+        return Result.success(setmealVO);
     }
 
     /**
@@ -63,6 +66,28 @@ public class SetmealController {
         setmealService.saveWithDish(setmealDTO);
         return Result.success();
     }
+
+    /**
+     * 删除套餐
+     */
+    @DeleteMapping
+    public Result delete(@RequestParam List<Long> ids){
+        log.info("删除套餐：{}",ids);
+        setmealService.delete(ids);
+        return Result.success();
+    }
+
+    /**
+     * 起售、停售套餐
+     */
+    @PostMapping("/status/{status}")
+    public Result openOrStop(@PathVariable Integer status,Long id){
+        log.info("起售停售套餐:{} {}",status == 1?"启售":"停售",id);
+        setmealService.openOrStop(status,id);
+        return Result.success();
+
+    }
+
 }
 
 

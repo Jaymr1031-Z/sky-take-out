@@ -79,4 +79,10 @@ public interface DishMapper {
      * @param ids
      */
     void deleteByDishId(List<Long> ids);
+
+    /**
+     * 根据套餐id查询菜品
+     * @param id
+     */
+    List<Dish> getBySetmealId(Long id);
 }
