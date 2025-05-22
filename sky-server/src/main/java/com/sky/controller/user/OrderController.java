@@ -12,6 +12,7 @@ import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -77,6 +78,16 @@ public class OrderController {
         log.info("查询订单详情：{}",id);
         OrderVO orderVO = orderService.details(id);
         return Result.success(orderVO);
+    }
+
+    /**
+     * 取消订单
+     */
+    @PutMapping("/cancel/{id}")
+    public Result cancel(@PathVariable Long id){
+        log.info("取消订单：{}",id);
+        orderService.cancel(id);
+        return Result.success();
     }
 
 }

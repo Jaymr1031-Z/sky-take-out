@@ -214,4 +214,31 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orders,orderVO);
         return orderVO;
     }
+
+
+    /**
+     * 取消订单
+     */
+    @Override
+    public void cancel(Long id) {
+        //根据id获取订单
+        Orders orders = orderMapper.getById(id);
+
+        if (orders == null){
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+        //查询订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+        if (orders.getStatus() > 2){
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Orders orders1 = new Orders();
+        orders1.setId(orders.getId());
+        if (Orders.TO_BE_CONFIRMED.equals(orders.getStatus())){
+            orders1.setPayStatus(Orders.REFUND);
+        }
+        orders1.setStatus(Orders.CANCELLED);
+        orders1.setCancelReason("用户取消");
+        orders1.setCancelTime(LocalDateTime.now());
+        orderMapper.update(orders1);
+    }
 }
