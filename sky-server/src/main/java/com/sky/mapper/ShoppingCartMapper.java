@@ -48,4 +48,9 @@ public interface ShoppingCartMapper {
      */
     void sub(ShoppingCart shoppingCart);
 
+    /**
+     * 将购物车对象批量加入到数据库
+     * @param shoppingCartList
+     */
+    void insertBatch(List<ShoppingCart> shoppingCartList);
 }
